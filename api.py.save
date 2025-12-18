@@ -1,0 +1,91 @@
+# File utama API yang menjadi core logic dari layanan keamanan (security service)
+# Skeleton UAS KID – sudah diperbaiki supaya server bisa jalan normal
+
+from fastapi import FastAPI, HTTPException, UploadFile, File
+from fastapi.middleware.cors import CORSMiddleware
+from typing import Dict
+from datetime import datetime
+import os
+
+app = FastAPI(title="Security Service", version="1.0.0")
+
+# =========================
+# CORS middleware
+# =========================
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# =========================
+# In-memory storage (sementara)
+# =========================
+PUBLIC_KEYS: Dict[str, str] = {}
+
+# =========================
+# Health check
+# =========================
+@app.get("/health")
+async def health_check():
+    return {
+        "status": "Security Service is running",
+        "timestamp": datetime.now().isoformat()
+    }
+
+# =========================
+# Index
+# =========================
+@app.get("/")
+async def get_index():
+    return {
+        "message": "Hello world! Please visit http://localhost:8080/docs for API UI."
+    }
+
+# =========================
+# Register public key (B- START)
+# =========================
+@app.post("/register")
+async def register_public_key(username: str, public_key: str):
+    if not username or not public_key:
+        raise HTTPException(status_code=400, detail="Username dan public key wajib diisi")
+
+    PUBLIC_KEYS[username] = public_key
+
+    return {
+        "message": "Public key registered",
+        "username": username
+    }
+
+# =========================
+# List users (debug / laporan)
+# =========================
+@app.get("/users")
+async def list_users():
+    return {
+        "users": list(PUBLIC_KEYS.keys())
+    }
+
+# =========================
+# Upload PDF (skeleton aman)
+# =========================
+@app.post("/upload-pdf")
+async def upload_pdf(file: UploadFile = File(...)):
+    try:
+        contents = await file.read()
+
+        # Simpan file sementara (dummy)
+        with open("uploaded_dummy.pdf", "wb") as f:
+            f.write(contents)
+
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+    return {
+        "message": "File uploaded successfully",
+        "filename": file.filename,
+        "content_type": file.content_type
+    }
+
