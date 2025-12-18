@@ -7,7 +7,9 @@ Anggota Kelompok :
 3. Arya abdi wicaksana (24031554224)
 
 Deskripsi Proyek :
-Proyek ini merupakan pengembangan layanan Punk Records API yang menerapkan konsep kriptografi dan keamanan sistem untuk menjamin integritas, autentikasi, dan kerahasiaan data. Sistem dibangun secara bertahap mengikuti skema penilaian York, Edison, Pythagoras (B+), hingga Stella (A), dengan fitur utama meliputi penyimpanan public key, verifikasi signature digital, pengiriman pesan terenkripsi, serta penandatanganan dokumen PDF. Pada tahap akhir, sistem dilengkapi mekanisme secure session menggunakan token Bearer (JWT) untuk membatasi akses endpoint hanya kepada pengguna terautentikasi. Seluruh fungsi diimplementasikan berbasis REST API dan diuji melalui Swagger UI untuk memastikan sistem berjalan aman, konsisten, dan sesuai dengan kebutuhan keamanan modern.
+Proyek ini bertujuan untuk membangun sebuah sistem Punk Records API yang menerapkan prinsip dasar hingga lanjutan dalam bidang kriptografi dan keamanan informasi. Pengembangan sistem dilakukan secara bertahap mengikuti skema penilaian York, Edison, Pythagoras (B+), dan Stella (A). Pada tahap awal, sistem menyediakan fungsi dasar seperti penyimpanan public key, verifikasi signature, relay message, serta penandatanganan dokumen PDF. Selanjutnya, sistem dikembangkan dengan penambahan mekanisme integrity check, multiuser, dan variasi penggunaan cipher untuk meningkatkan fleksibilitas dan keandalan sistem.
+
+Pada tahap akhir (Stella), sistem dilengkapi dengan mekanisme secure session menggunakan token Bearer berbasis JSON Web Token (JWT). Mekanisme ini memastikan bahwa setiap endpoint penting hanya dapat diakses oleh pengguna yang telah terautentikasi dan terotorisasi. Implementasi secure session ini meningkatkan tingkat keamanan sistem dengan membatasi akses tidak sah serta memastikan setiap proses komunikasi dilakukan dalam sesi yang aman. Seluruh fitur diuji menggunakan Swagger UI untuk memastikan fungsionalitas berjalan dengan baik dan sesuai dengan kriteria keamanan yang ditetapkan.
 
 # Instalasi
 1.  Pasang uv from [situs resmi](https://docs.astral.sh/uv/getting-started/installation/).
